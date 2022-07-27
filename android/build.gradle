@@ -1,0 +1,52 @@
+group 'cachet.plugins.health'
+version '1.2'
+
+buildscript {
+    ext.kotlin_version = '1.6.10'
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 31
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+//    implementation 'com.afollestad.inline-activity-result:core:0.2.0'
+//    implementation 'com.afollestad.inline-activity-result:coroutines:0.2.0'
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+
+    implementation("com.google.android.gms:play-services-fitness:21.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.2.0")
+}
