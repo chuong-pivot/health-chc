@@ -854,7 +854,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
     )
 
     /// Not granted? Ask for permission
-    if (!isGranted && activity != null) {
+   //  if (!isGranted && activity != null) {
       val res = GoogleSignIn.requestPermissions(
         activity!!,
         GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,
@@ -863,11 +863,11 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
       )
 
 		mResult?.success(res);
-    }
-    /// Permission already granted
-	 else {
-      mResult?.success(false)
-	 }
+   //  }
+   //  /// Permission already granted
+	//  else {
+   //    mResult?.success(false)
+	//  }
 
   }
 
