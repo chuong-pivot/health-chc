@@ -111,10 +111,12 @@ class HealthFactory {
     if (_platformType == PlatformType.ANDROID) _handleBMI(mTypes, mPermissions);
 
     List<String> keys = mTypes.map((e) => _enumToString(e)).toList();
+
     final dynamic? isAuthorized = await _channel.invokeMethod(
         'requestAuthorization', {'types': keys, "permissions": mPermissions});
 
-    log(isAuthorized.toString());
+    print('isAuthorized');
+    print(isAuthorized.toString());
 
     return isAuthorized != null;
   }

@@ -834,17 +834,6 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
       return
     }
 
-    val fitnessOptions = FitnessOptions.builder()
-      .addDataType(DataType.TYPE_ACTIVITY_SEGMENT)
-      .build()
-
-    val signInOptions = GoogleSignInOptions.Builder()
-      .addExtension(fitnessOptions)
-      .build()
-
-    val client = GoogleSignIn.getClient(activity!!.applicationContext, signInOptions);
-    client.signOut()
-
     val optionsToRegister = callToHealthTypes(call)
     mResult = result
 
@@ -861,19 +850,11 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
         GoogleSignIn.getLastSignedInAccount(activity!!),
         optionsToRegister
       )
-
-       val isGranted = GoogleSignIn.hasPermissions(
-         GoogleSignIn.getLastSignedInAccount(activity!!),
-         optionsToRegister
-       )
-
-       mResult?.success(isGranted)
      }
-     /// Permission already granted
-	  else {
-       mResult?.success(false)
-	  }
-
+    else {
+       val isSignedIn = GoogleSignIn.getLastSignedInAccount(activity!!) != null;
+       mResult?.success(isSignedIn);
+     }
   }
 
 //  private fun getTotalStepsInInterval(call: MethodCall, result: Result) {
@@ -973,7 +954,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
     if (activity == null) {
       result.success(false);
     }
-	
+
     val fitnessOptions = FitnessOptions.builder()
       .addDataType(DataType.TYPE_ACTIVITY_SEGMENT)
       .build()
@@ -983,7 +964,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
       .build()
 
     val client = GoogleSignIn.getClient(activity!!.applicationContext, signInOptions);
-    client.revokeAccess()
+    client.signOut()
 
 	result.success(true);
   }
