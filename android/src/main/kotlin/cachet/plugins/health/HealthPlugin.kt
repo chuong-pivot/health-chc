@@ -833,30 +833,6 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
       result.success(false)
       return
     }
-//
-//    val fitnessOptions = FitnessOptions.builder()
-//      .addDataType(DataType.TYPE_ACTIVITY_SEGMENT)
-//      .build()
-//
-//    val signInOptions = GoogleSignInOptions.Builder()
-//      .addExtension(fitnessOptions)
-//      .build()
-//
-//    GoogleSignIn.getClient(activity!!.applicationContext, signInOptions)
-//      .revokeAccess();
-
-//    val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//      .requestIdToken("33561260245-0bkep4vkbmt9uuf3vgbb2ko3ta5rroho.apps.googleusercontent.com")
-//      .requestEmail()
-//      .build()
-//
-
-//    val signInIntent = googleClient.signInIntent
-//    val intentResult = activity!!.startActivityForResult(signInIntent, 1)
-//
-//    Log.e("result:", intentResult.hashCode().toString())
-
-//    result.success(intentResult.toString())
 
     val fitnessOptions = FitnessOptions.builder()
       .addDataType(DataType.TYPE_ACTIVITY_SEGMENT)
@@ -885,11 +861,16 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
         GoogleSignIn.getLastSignedInAccount(activity!!),
         optionsToRegister
       )
+
+		mResult?.success(true)
     }
     /// Permission already granted
-    else {
+    else if (isGranted && activity != null) {
       mResult?.success(true)
     }
+	 else {
+      mResult?.success(false)
+	 }
 
   }
 
