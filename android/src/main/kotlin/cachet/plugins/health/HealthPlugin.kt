@@ -862,12 +862,9 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
         optionsToRegister
       )
 
-		mResult?.success(true)
+		mResult?.success(res);
     }
     /// Permission already granted
-    else if (isGranted && activity != null) {
-      mResult?.success(true)
-    }
 	 else {
       mResult?.success(false)
 	 }
