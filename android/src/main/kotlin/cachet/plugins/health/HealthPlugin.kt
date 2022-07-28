@@ -853,21 +853,26 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
       optionsToRegister
     )
 
-    /// Not granted? Ask for permission
-   //  if (!isGranted && activity != null) {
-      val res = GoogleSignIn.requestPermissions(
+//    / Not granted? Ask for permission
+     if (!isGranted && activity != null) {
+      GoogleSignIn.requestPermissions(
         activity!!,
         GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,
         GoogleSignIn.getLastSignedInAccount(activity!!),
         optionsToRegister
       )
 
-		mResult?.success(res);
-   //  }
-   //  /// Permission already granted
-	//  else {
-   //    mResult?.success(false)
-	//  }
+       val isGranted = GoogleSignIn.hasPermissions(
+         GoogleSignIn.getLastSignedInAccount(activity!!),
+         optionsToRegister
+       )
+
+       mResult?.success(isGranted)
+     }
+     /// Permission already granted
+	  else {
+       mResult?.success(false)
+	  }
 
   }
 
