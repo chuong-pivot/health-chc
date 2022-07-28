@@ -983,7 +983,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) : MethodCallHandl
       .build()
 
     val client = GoogleSignIn.getClient(activity!!.applicationContext, signInOptions);
-    client.signOut()
+    client.revokeAccess()
 
 	result.success(true);
   }
